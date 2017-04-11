@@ -34,6 +34,9 @@ namespace Characters.Quorra
 			bool crouch = Input.GetKey (KeyCode.C);
 
 			// Adjust vertical speed when walk or run(Press LeftShift)...
+
+			v = v < 0 ? 0 : v;
+
 			v *= GetSpeedDelta (h, v);
 			h *= GetSpeedDelta (h, v);
 
@@ -41,6 +44,7 @@ namespace Characters.Quorra
 			if (_camera != null) {
 				// calculate camera relative direction to move:
 				cameraForward = Vector3.Scale (_camera.forward, new Vector3 (1, 0, 1)).normalized;
+
 				move = v * cameraForward + h * _camera.right;
 			} else {
 				// we use world-relative directions in the case of no main camera
