@@ -9,6 +9,7 @@ public class FirstPersonCamera : MonoBehaviour
 		cameraDistance = YDistanceBetween (middleBody.transform, _camera.transform);
 		initialCameraRotationLimit = motor.CameraRotationLimit;
 		initialCameraYPosition = CameraYPosition ();
+		motor.RotateCamera (0f);
 	}
 
 	void Update ()
@@ -20,7 +21,7 @@ public class FirstPersonCamera : MonoBehaviour
 
 		motor.CameraHeight = YPosition (middleBody.transform) + cameraDistance;
 
-		if (CameraYPosition () < initialCameraYPosition - 0.5f)
+		if (CameraYPosition () < initialCameraYPosition - 0.1f)
 			motor.CameraRotationLimit = 40f;
 		else
 			motor.CameraRotationLimit = initialCameraRotationLimit;
