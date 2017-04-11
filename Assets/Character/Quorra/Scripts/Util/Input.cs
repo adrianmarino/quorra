@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 namespace Util
 {
@@ -25,60 +26,60 @@ namespace Util
 			Cursor.lockState = CursorLockMode.None;
 		}
 
-		public static Vector2 NextKeyboardHorVerMovementVariation ()
+		public static Vector2 KeyboardMovementDelta ()
 		{
 			return new Vector2 (
-				NextHorizontalMovementVariation (), 
-				NextVerticalMovementVariation ()
+				HorizontalMovementDelta (), 
+				VerticalMovementDelta ()
 			);
 		}
 
-		public static Vector2 NextMouseHorVerMovementVariation ()
+		public static Vector2 MouseMovementDelta ()
 		{
 			return new Vector2 (
-				NextMouseHorizontalMovementVariation (), 
-				NextMouseVercalMovementVariation ()
+				MouseHorizontalMovementDelta (), 
+				MouseVerticalMovementDelta ()
 			);
 		}
 
-		public static float NextMouseHorizontalMovementVariation ()
+		public static float MouseHorizontalMovementDelta ()
 		{
-			return NextMovementVariation ("Mouse X");
+			return MovementDelta ("Mouse X");
 		}
 
-		public static float NextMouseVercalMovementVariation ()
+		public static float MouseVerticalMovementDelta ()
 		{
-			return NextMovementVariation ("Mouse Y");
+			return MovementDelta ("Mouse Y");
 		}
 
-		public static float NextHorizontalMovementVariation ()
+		public static float HorizontalMovementDelta ()
 		{
-			return NextMovementVariation ("Horizontal");
+			return MovementDelta ("Horizontal");
 		}
 
-		public static float NextVerticalMovementVariation ()
+		public static float VerticalMovementDelta ()
 		{
-			return NextMovementVariation ("Vertical");
+			return MovementDelta ("Vertical");
 		}
 
-		public static float NextMovementVariation (string axisName)
+		public static float MovementDelta (string axisName)
 		{
-			return UnityEngine.Input.GetAxisRaw (axisName);
+			return CrossPlatformInputManager.GetAxisRaw (axisName);
 		}
 
 		public static bool GetJumpButtonDown ()
 		{
-			return UnityEngine.Input.GetButtonDown ("Jump");
+			return CrossPlatformInputManager.GetButtonDown ("Jump");
 		}
 
 		public static bool GetJumpButtonUp ()
 		{
-			return UnityEngine.Input.GetButtonUp ("Jump");
+			return CrossPlatformInputManager.GetButtonUp ("Jump");
 		}
 
 		public static bool GetFireButton ()
 		{
-			return UnityEngine.Input.GetButton ("Fire1");
+			return CrossPlatformInputManager.GetButton ("Fire1");
 		}
 
 		//-----------------------------------------------------------------------------

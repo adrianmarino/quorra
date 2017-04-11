@@ -28,7 +28,7 @@ public class FirstPersonCamera : MonoBehaviour
 
 	Vector2 MouseMovementVariation ()
 	{
-		return Util.Input.NextMouseHorVerMovementVariation ();
+		return Util.Input.MouseMovementDelta ();
 	}
 
 	float YPosition (Transform _transform)
