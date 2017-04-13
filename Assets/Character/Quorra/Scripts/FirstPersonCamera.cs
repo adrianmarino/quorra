@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
+[RequireComponent (typeof(PlayerMotor))]
 public class FirstPersonCamera : MonoBehaviour
 {
 	//-----------------------------------------------------------------------------

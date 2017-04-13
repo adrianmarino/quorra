@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Characters.ThirdPerson;
 
 namespace Characters.Quorra
