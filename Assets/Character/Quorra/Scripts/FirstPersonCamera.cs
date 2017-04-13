@@ -3,6 +3,10 @@ using System;
 
 public class FirstPersonCamera : MonoBehaviour
 {
+	//-----------------------------------------------------------------------------
+	// Engine Methods
+	//-----------------------------------------------------------------------------
+
 	void Start ()
 	{
 		motor = GetComponent <PlayerMotor> ();
@@ -14,15 +18,26 @@ public class FirstPersonCamera : MonoBehaviour
 
 	void Update ()
 	{
+		UpdateCameraHorizontalRotation ();
+		UpdateCameraVerticalRotation ();
+	}
+
+	//-----------------------------------------------------------------------------
+	// Private Methods
+	//-----------------------------------------------------------------------------
+
+	void UpdateCameraHorizontalRotation ()
+	{
 		Vector3 rotation = new Vector3 (0f, MouseMovementVariation ().x, 0f) * lookSensibility;
 		motor.Rotate (rotation);
+	}
 
+	void UpdateCameraVerticalRotation ()
+	{
 		motor.RotateCamera (MouseMovementVariation ().y * lookSensibility);
-
 		motor.CameraHeight = YPosition (middleBody.transform) + cameraDistance;
-
 		if (CameraYPosition () < initialCameraYPosition - 0.1f)
-			motor.CameraRotationLimit = 40f;
+			motor.CameraRotationLimit = crouchCameraVerticalLimit;
 		else
 			motor.CameraRotationLimit = initialCameraRotationLimit;
 	}
@@ -53,6 +68,9 @@ public class FirstPersonCamera : MonoBehaviour
 
 	[SerializeField]
 	private float lookSensibility = 3f;
+
+	[SerializeField]
+	private float crouchCameraVerticalLimit = 40f;
 
 	[SerializeField]
 	private GameObject middleBody;

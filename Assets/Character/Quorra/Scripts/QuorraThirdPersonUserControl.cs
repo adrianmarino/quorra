@@ -37,8 +37,8 @@ namespace Characters.Quorra
 
 			v = v < 0 ? 0 : v;
 
-			v *= GetSpeedDelta (h, v);
-			h *= GetSpeedDelta (h, v);
+			// v *= GetSpeedDelta (h, v);
+			// h *= GetSpeedDelta (h, v);
 
 			// calculate move direction to pass to character
 			if (_camera != null) {
@@ -60,6 +60,7 @@ namespace Characters.Quorra
 #endif
 
 			// pass all parameters to the character control script
+			move = Vector3.ClampMagnitude (move, 1);
 			character.Move (move, crouch, jump);
 			jump = false;
 		}
