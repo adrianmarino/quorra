@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 [RequireComponent (typeof(PlayerMotor))]
+[RequireComponent (typeof(ThirdPersonCharacter))]
 public class FirstPersonCamera : MonoBehaviour
 {
 	//-----------------------------------------------------------------------------
@@ -10,14 +12,12 @@ public class FirstPersonCamera : MonoBehaviour
 
 	void Start ()
 	{
-		motor = GetComponent <PlayerMotor> ();
-		cameraDistance = YDistanceBetween (middleBody.transform, _camera.transform);
-		initialCameraRotationLimit = motor.CameraRotationLimit;
-		initialCameraYPosition = CameraYPosition ();
-		motor.RotateCamera (0f);
+		InitializeMotor ();
+		InitializeCharacter ();
+		InitializeCamera ();
 	}
 
-	void Update ()
+	void FixedUpdate ()
 	{
 		UpdateCameraHorizontalRotation ();
 		UpdateCameraVerticalRotation ();
@@ -36,6 +36,11 @@ public class FirstPersonCamera : MonoBehaviour
 	void UpdateCameraVerticalRotation ()
 	{
 		motor.RotateCamera (MouseMovementVariation ().y * lookSensibility);
+		UpdateCameraVerticalClamp ();
+	}
+
+	void UpdateCameraVerticalClamp ()
+	{
 		motor.CameraHeight = YPosition (middleBody.transform) + cameraDistance;
 		if (CameraYPosition () < initialCameraYPosition - 0.1f)
 			motor.CameraRotationLimit = crouchCameraVerticalLimit;
@@ -64,6 +69,28 @@ public class FirstPersonCamera : MonoBehaviour
 	}
 
 	//-----------------------------------------------------------------------------
+	// Initialization Methods
+	//-----------------------------------------------------------------------------
+
+	void InitializeMotor ()
+	{
+		motor = GetComponent<PlayerMotor> ();
+		motor.RotateCamera (0f);
+	}
+
+	void InitializeCharacter ()
+	{
+		character = GetComponent<ThirdPersonCharacter> ();
+	}
+
+	void InitializeCamera ()
+	{
+		cameraDistance = YDistanceBetween (middleBody.transform, _camera.transform);
+		initialCameraRotationLimit = motor.CameraRotationLimit;
+		initialCameraYPosition = CameraYPosition ();
+	}
+
+	//-----------------------------------------------------------------------------
 	// Attributes
 	//-----------------------------------------------------------------------------
 
@@ -82,4 +109,6 @@ public class FirstPersonCamera : MonoBehaviour
 	private PlayerMotor motor;
 
 	private float cameraDistance, initialCameraYPosition, initialCameraRotationLimit;
+
+	private ThirdPersonCharacter character;
 }
