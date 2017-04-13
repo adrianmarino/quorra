@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System;
-using UnityStandardAssets.Characters.ThirdPerson;
 
 [RequireComponent (typeof(PlayerMotor))]
-[RequireComponent (typeof(ThirdPersonCharacter))]
 public class FirstPersonCamera : MonoBehaviour
 {
 	//-----------------------------------------------------------------------------
@@ -13,7 +11,6 @@ public class FirstPersonCamera : MonoBehaviour
 	void Start ()
 	{
 		InitializeMotor ();
-		InitializeCharacter ();
 		InitializeCamera ();
 	}
 
@@ -78,11 +75,6 @@ public class FirstPersonCamera : MonoBehaviour
 		motor.RotateCamera (0f);
 	}
 
-	void InitializeCharacter ()
-	{
-		character = GetComponent<ThirdPersonCharacter> ();
-	}
-
 	void InitializeCamera ()
 	{
 		cameraDistance = YDistanceBetween (middleBody.transform, _camera.transform);
@@ -109,6 +101,4 @@ public class FirstPersonCamera : MonoBehaviour
 	private PlayerMotor motor;
 
 	private float cameraDistance, initialCameraYPosition, initialCameraRotationLimit;
-
-	private ThirdPersonCharacter character;
 }
